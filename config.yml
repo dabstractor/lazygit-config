@@ -1,11 +1,9 @@
 os:
   editPreset: nvim
-
 git:
   paging:
     colorArg: always
     pager: delta --dark --paging=never
-
 theme:
   activeBorderColor:
     - '#8aadf4'
@@ -26,7 +24,6 @@ theme:
     - '#cad3f5'
   searchingActiveBorderColor:
     - '#eed49f'
-
 customCommands:
   - key: 'W'
     description: 'Create new worktree with branch'
@@ -37,7 +34,18 @@ customCommands:
         initialValue: ''
     command: 'git newwt "{{index .PromptResponses 0}}"'
     loadingText: 'Creating worktree...'
-
+  - key: '<c-n>'
+    description: 'Open neovide at git root'
+    context: 'global'
+    command: 'neovide --fork --no-tabs'
+    loadingText: 'Opening neovide...'
+    output: terminal
+  - key: '<c-a>'
+    description: 'AI commit with Claude'
+    context: 'files'
+    command: 'git commit-claude'
+    loadingText: 'Generating commit message with Claude...'
+    output: none
 keybinding:
   universal:
     prevTab: '-'
