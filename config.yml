@@ -1,9 +1,9 @@
 os:
   editPreset: nvim
 git:
-  paging:
-    colorArg: always
-    pager: delta --dark --paging=never
+  pagers:
+    - colorArg: always
+      pager: delta --dark --paging=never
 theme:
   activeBorderColor:
     - '#8aadf4'
@@ -25,7 +25,7 @@ theme:
   searchingActiveBorderColor:
     - '#eed49f'
 customCommands:
-  - key: 'W'
+  - key: '<c-w>'
     description: 'Create new worktree with branch'
     context: 'global'
     prompts:
@@ -40,12 +40,24 @@ customCommands:
     command: 'neovide --fork --no-tabs'
     loadingText: 'Opening neovide...'
     output: terminal
-  - key: '<c-a>'
-    description: 'AI commit with Claude'
+  - key: '<c-a>' # stagecoach-integration (Files)
     context: 'files'
-    command: 'git commit-claude'
-    loadingText: 'Generating commit message with Claude...'
-    output: none
+    command: 'stagecoach'
+    loadingText: 'Generating commit message…'
+    output: 'none'
+    description: 'stagecoach: AI commit'
+  - key: '<c-a>' # stagecoach-integration (Branches)
+    context: 'localBranches'
+    command: 'stagecoach'
+    loadingText: 'Generating commit message…'
+    output: 'none'
+    description: 'stagecoach: AI commit'
+  - key: '<c-a>' # stagecoach-integration (Commits)
+    context: 'commits'
+    command: 'stagecoach'
+    loadingText: 'Generating commit message…'
+    output: 'none'
+    description: 'stagecoach: AI commit'
 keybinding:
   universal:
     prevTab: '-'
@@ -53,3 +65,6 @@ keybinding:
   files:
     collapseAll: '['
     expandAll: ']'
+  commits:
+    moveUpCommit: '<a-k>'
+    moveDownCommit: '<a-j>'
