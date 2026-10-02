@@ -1,0 +1,29 @@
+# diffsearch keybinds & options — every value here is the built-in default,
+# so edit away and delete lines you don't care about.
+#
+# Key syntax: single characters ("j", "K"), named keys ("ENTER", "ESC",
+# "BACKSPACE", "TAB", "UP", "DOWN", "LEFT", "RIGHT", "PGUP", "PGDN",
+# "HOME", "END"), or ctrl combos ("C-u", "C-s").
+
+[keys]
+up = "k"                 # tree: move up one row
+down = "j"               # tree: move down one row
+scroll_up = "K"          # scroll the results pane up (half a page)
+scroll_down = "J"        # scroll the results pane down (half a page)
+scope = "ENTER"          # tree: scope the search to the selection, focus search box
+jump = "ENTER"           # search box: jump to first match (focuses tree)
+to_tree = "ESC"          # search box: focus the file tree
+focus_search = "/"       # tree: focus the search box
+scope_up = "BACKSPACE"   # tree: pop the scope up one directory
+expand = "l"             # tree: expand directory
+collapse = "h"           # tree: collapse directory (already collapsed: pop scope)
+quit = "q"               # tree: quit (ESC at root scope also quits)
+clear_query = "C-u"      # search box: clear the query
+
+[search]
+regex = true             # true: query is a regex; false: literal fixed string
+case = "smart"           # smart = insensitive unless the query has uppercase
+
+[ui]
+tree_width = 0           # 0 = auto (30% of terminal width, clamped 24..48)
+context_lines = 3        # context lines around each diff hunk

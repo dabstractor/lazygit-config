@@ -1,9 +1,12 @@
 os:
   editPreset: nvim
+  # return straight to lazygit after `output: terminal` commands (diffsearch,
+  # neovide) instead of "Press enter to return to lazygit"
+  promptToReturnFromSubprocess: false
 git:
-  pagers:
+  diffRenderers:
     - colorArg: always
-      pager: delta --dark --paging=never
+      command: delta --dark --paging=never
 theme:
   activeBorderColor:
     - '#8aadf4'
@@ -40,7 +43,7 @@ customCommands:
     command: 'neovide --fork --no-tabs'
     loadingText: 'Opening neovide...'
     output: terminal
-  - key: '<c-a>' # stagecoach-integration (Files)
+  - key: '<c-a>' # stagecoach-integration
     context: 'files'
     command: 'stagecoach'
     loadingText: 'Generating commit message…'
@@ -58,6 +61,11 @@ customCommands:
     loadingText: 'Generating commit message…'
     output: 'none'
     description: 'stagecoach: AI commit'
+  - key: '<c-s>' # diffsearch: full-screen regex search across uncommitted changes
+    context: 'files'
+    command: 'python3 "$HOME/.config/lazygit/diffsearch.py" --select {{.SelectedPath | quote}}'
+    output: terminal
+    description: 'diffsearch: search uncommitted changes'
 keybinding:
   universal:
     prevTab: '-'
