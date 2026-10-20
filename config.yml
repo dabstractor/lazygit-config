@@ -1,8 +1,10 @@
+# return straight to lazygit after `output: terminal` commands (diffsearch,
+# neovide, git log -p) instead of "Press enter to return to lazygit"
+# NOTE: this is a TOP-LEVEL key in lazygit >= 0.4x/0.65 (it was previously
+# under os: — there it is silently ignored and the default `true` applies)
+promptToReturnFromSubprocess: false
 os:
   editPreset: nvim
-  # return straight to lazygit after `output: terminal` commands (diffsearch,
-  # neovide) instead of "Press enter to return to lazygit"
-  promptToReturnFromSubprocess: false
 git:
   diffRenderers:
     - colorArg: always
@@ -61,6 +63,18 @@ customCommands:
     loadingText: 'Generating commit message…'
     output: 'none'
     description: 'stagecoach: AI commit'
+  - key: '<c-v>' # git log -p -- <selected file>: full patch history of file
+    # LESS= (empty) forces less to use the alternate screen: previous output is
+    # wiped on exit — every open starts fresh with only the new file's log.
+    context: 'files'
+    command: 'git --no-pager log --color=always -p -- {{.SelectedPath | quote}} | delta | LESS= less -R'
+    description: 'git log -p: file history'
+    output: terminal
+  - key: '<c-v>' # same, from a commit's file list (Log → Enter on commit)
+    context: 'commitFiles'
+    command: 'git --no-pager log --color=always -p -- {{.SelectedPath | quote}} | delta | LESS= less -R'
+    description: 'git log -p: file history'
+    output: terminal
   - key: '<c-s>' # diffsearch: full-screen regex search across uncommitted changes
     context: 'files'
     command: 'python3 "$HOME/.config/lazygit/diffsearch.py" --select {{.SelectedPath | quote}}'
